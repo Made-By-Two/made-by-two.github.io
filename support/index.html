@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Made by Two Support</title>
+<meta name="description" content="Help and contact for apps by Made by Two: Nymora, Handful and more.">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="/nymora/icon.png">
+</head>
+<body>
+<main>
+<nav><a class="home" href="/">Made by Two</a><a href="/support/">Support</a></nav>
+
+<h1>Support</h1>
+<p class="muted">Something not working, a question, or an idea? Write to us below. We read every message.</p>
+
+<form id="composer" class="card composer" novalidate>
+  <fieldset class="apps">
+    <legend>Which app?</legend>
+    <label class="app"><input type="radio" name="app" value="nymora" checked>
+      <span><img src="/nymora/icon.png" alt="">Nymora</span></label>
+    <label class="app"><input type="radio" name="app" value="handful">
+      <span><img src="/handful/icon.png" alt="">Handful</span></label>
+    <label class="app"><input type="radio" name="app" value="other">
+      <span><b class="other-icon" aria-hidden="true">?</b>Something else</span></label>
+  </fieldset>
+
+  <fieldset class="topics">
+    <legend>What is it about?</legend>
+    <label><input type="radio" name="topic" value="Problem" checked><span>Something's wrong</span></label>
+    <label><input type="radio" name="topic" value="Question"><span>A question</span></label>
+    <label><input type="radio" name="topic" value="Purchase"><span>Purchase or subscription</span></label>
+    <label><input type="radio" name="topic" value="Idea"><span>An idea</span></label>
+  </fieldset>
+
+  <label class="field" for="message">Your message</label>
+  <textarea id="message" rows="7" placeholder="Tell us what happened and what you expected. A few steps to repeat it help a lot."></textarea>
+
+  <label class="check"><input type="checkbox" id="device" checked>
+    <span>Add my device info <span class="muted" id="device-text"></span></span></label>
+
+  <div class="actions">
+    <button type="submit" class="send">Open in Mail</button>
+    <button type="button" class="ghost" id="copy">Copy message</button>
+  </div>
+  <p class="note muted" id="note">Opens your mail app with everything filled in, so you can check it before sending. No mail app? Copy the message and send it to <a class="address" href="#"></a>.</p>
+</form>
+
+<section class="faq" data-app="nymora">
+<h2>Nymora: common questions</h2>
+<dl>
+<dt>How do I get Nymora Pro back on a new phone?</dt>
+<dd>Open Nymora, go to the Profile tab (the person icon), scroll to the bottom and tap Restore purchases. Use the same Apple Account you subscribed with.</dd>
+<dt>How do I cancel or change my subscription?</dt>
+<dd>In Nymora, Profile → Manage subscription. Or on your iPhone: Settings → your name → Subscriptions → Nymora. Cancelling keeps Pro until the end of the period you paid for.</dd>
+<dt>When can I ask the cards again?</dt>
+<dd>Without Pro you get one tarot reading a day. When it's used, Nymora shows the time your next reading opens. Nymora Pro removes the daily limit.</dd>
+<dt>I don't know my birth time.</dt>
+<dd>That's fine: choose “I don't know my birth time”. Nymora then works from local noon and leaves out your rising sign and houses, which depend on the exact time. You can add a birth time later in Profile.</dd>
+<dt>How do I change the language?</dt>
+<dd>Profile → Language. Nymora is available in English, Turkish, German, Italian, French and Spanish.</dd>
+<dt>My daily reminder doesn't arrive.</dt>
+<dd>Profile → Notifications: turn the reminder on and pick a time. If Nymora asks you to allow notifications, allow them in iPhone Settings → Notifications → Nymora.</dd>
+<dt>How do I start over with different details?</dt>
+<dd>Profile → Start over deletes your details on this phone and takes you back to the beginning.</dd>
+</dl>
+</section>
+
+<section class="faq" data-app="handful" hidden>
+<h2>Handful: common questions</h2>
+<dl>
+<dt>When does the new puzzle come out?</dt>
+<dd>At midnight in your time zone. Everyone plays the same word on the same date.</dd>
+<dt>How do I get Handful Pro back on a new phone?</dt>
+<dd>Open Handful, go to Settings and tap Restore purchases. Make sure you're signed in with the same Apple Account you bought it with.</dd>
+<dt>My coins or streak didn't move to my new device.</dt>
+<dd>Handful syncs through iCloud. Check that you're signed in to iCloud on both devices, then open Handful on both while online.</dd>
+<dt>What does a streak freeze do?</dt>
+<dd>If you miss a day, a freeze is used automatically so your streak continues. You can hold up to two; Pro players get one free each week.</dd>
+<dt>I ran out of rows. Can I keep going?</dt>
+<dd>Once per game you can add one more row for coins or by watching a short ad (free with Pro). Or reveal the answer and come back tomorrow.</dd>
+<dt>How do I change my ad privacy choices?</dt>
+<dd>In the EEA, UK and Switzerland: Settings → Ad privacy choices in Handful. Everywhere: iPhone Settings → Privacy &amp; Security → Tracking.</dd>
+<dt>I was charged but didn't get my coins.</dt>
+<dd>Reopen Handful while online; unfinished purchases are delivered when the app starts. If they still don't appear, write to us with the date of purchase.</dd>
+</dl>
+</section>
+
+<section class="faq" data-app="all">
+<h2>For every app</h2>
+<dl>
+<dt>I was charged twice, or want a refund.</dt>
+<dd>Purchases are handled by Apple. Request a refund at <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>, or write to us and we'll help.</dd>
+<dt>How do I change my ad tracking choice?</dt>
+<dd>iPhone Settings → Privacy &amp; Security → Tracking. Pro subscribers don't see ads at all.</dd>
+</dl>
+</section>
+
+<footer>Made by Two makes Nymora and Handful. Write to us any time at <a class="address" href="#"></a>.</footer>
+</main>
+
+<script>
+(function () {
+  var ADDRESS = "berkeaydin@gmail.com";
+  var NAMES = { nymora: "Nymora", handful: "Handful", other: "Made by Two" };
+  var form = document.getElementById("composer");
+  var message = document.getElementById("message");
+  var device = document.getElementById("device");
+  var note = document.getElementById("note");
+
+  function showAddress(root) {
+    root.querySelectorAll("a.address").forEach(function (a) { a.href = "mailto:" + ADDRESS; a.textContent = ADDRESS; });
+  }
+  showAddress(document);
+
+  // The device line, from what the browser tells us (the exact model is not shared).
+  function deviceLine() {
+    var ua = navigator.userAgent, m;
+    var kind = /iPad/.test(ua) ? "iPad" : /iPhone/.test(ua) ? "iPhone" : /Android/.test(ua) ? "Android" : /Mac/.test(ua) ? "Mac" : "Other";
+    if ((m = ua.match(/OS (\d+)[_.](\d+)(?:[_.](\d+))? like Mac OS X/))) return kind + " · iOS " + m[1] + "." + m[2] + (m[3] ? "." + m[3] : "");
+    if ((m = ua.match(/Android (\d+(?:\.\d+)*)/))) return kind + " · Android " + m[1];
+    if ((m = ua.match(/Mac OS X (\d+)[_.](\d+)/))) return kind + " · macOS " + m[1] + "." + m[2];
+    return kind;
+  }
+  document.getElementById("device-text").textContent = "(" + deviceLine() + ")";
+
+  function value(name) {
+    var el = form.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : "";
+  }
+
+  // Shows the common questions for the chosen app.
+  function showFaq() {
+    var app = value("app");
+    document.querySelectorAll(".faq").forEach(function (s) {
+      s.hidden = !(s.dataset.app === app || s.dataset.app === "all");
+    });
+  }
+
+  function compose() {
+    var app = NAMES[value("app")], topic = value("topic");
+    var text = message.value.trim();
+    var first = text.split(/\n/)[0].slice(0, 60);
+    var subject = "[" + app + "] " + topic + (first ? ": " + first : "");
+    var body = text + "\n\n—\nApp: " + app + "\nTopic: " + topic;
+    if (device.checked) body += "\nDevice: " + deviceLine();
+    return { subject: subject, body: body };
+  }
+
+  // Keeps an unsent draft if the page is closed (only on this device).
+  var KEY = "support-draft";
+  try { var saved = localStorage.getItem(KEY); if (saved && !message.value) message.value = saved; } catch (e) {}
+  message.addEventListener("input", function () { try { localStorage.setItem(KEY, message.value); } catch (e) {} });
+
+  // ?app=nymora picks the app (each app's Support URL links here this way).
+  var wanted = (new URLSearchParams(location.search).get("app") || "").toLowerCase();
+  var chosen = NAMES[wanted] && form.querySelector('input[name="app"][value="' + wanted + '"]');
+  if (chosen) chosen.checked = true;
+  form.addEventListener("change", showFaq);
+  showFaq();
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!message.value.trim()) {
+      message.focus();
+      note.textContent = "Write a few words first, then tap Open in Mail.";
+      return;
+    }
+    var mail = compose();
+    location.href = "mailto:" + ADDRESS + "?subject=" + encodeURIComponent(mail.subject) +
+      "&body=" + encodeURIComponent(mail.body.replace(/\n/g, "\r\n"));
+    note.innerHTML = 'Your mail app should open now. Nothing happened? Tap <b>Copy message</b> and send it to <a class="address" href="#"></a>.';
+    showAddress(note);
+  });
+
+  document.getElementById("copy").addEventListener("click", function () {
+    var mail = compose();
+    var all = "To: " + ADDRESS + "\nSubject: " + mail.subject + "\n\n" + mail.body;
+    var done = function () { note.textContent = "Copied. Paste it into an email to " + ADDRESS + "."; };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(all).then(done, function () { fallback(all); done(); });
+    } else { fallback(all); done(); }
+  });
+
+  function fallback(text) {
+    var t = document.createElement("textarea");
+    t.value = text; t.setAttribute("readonly", ""); t.style.position = "fixed"; t.style.opacity = "0";
+    document.body.appendChild(t); t.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(t);
+  }
+})();
+</script>
+</body>
+</html>
