@@ -16,16 +16,6 @@
 <p class="muted">Something not working, a question, or an idea? Write to us below. We read every message.</p>
 
 <form id="composer" class="card composer" novalidate>
-  <fieldset class="apps">
-    <legend>Which app?</legend>
-    <label class="app"><input type="radio" name="app" value="nymora" checked>
-      <span><img src="/nymora/icon.png" alt="">Nymora</span></label>
-    <label class="app"><input type="radio" name="app" value="handful">
-      <span><img src="/handful/icon.png" alt="">Handful</span></label>
-    <label class="app"><input type="radio" name="app" value="other">
-      <span><b class="other-icon" aria-hidden="true">?</b>Something else</span></label>
-  </fieldset>
-
   <fieldset class="topics">
     <legend>What is it about?</legend>
     <label><input type="radio" name="topic" value="Problem" checked><span>Something's wrong</span></label>
@@ -67,7 +57,7 @@
 </dl>
 </section>
 
-<section class="faq" data-app="handful" hidden>
+<section class="faq" data-app="handful">
 <h2>Handful: common questions</h2>
 <dl>
 <dt>When does the new puzzle come out?</dt>
@@ -130,20 +120,20 @@
     return el ? el.value : "";
   }
 
-  // Shows the common questions for the chosen app.
-  function showFaq() {
-    var app = value("app");
-    document.querySelectorAll(".faq").forEach(function (s) {
-      s.hidden = !(s.dataset.app === app || s.dataset.app === "all");
-    });
-  }
+  // An app's Support URL links here with ?app=nymora: its messages are tagged with the
+  // app and only its questions show. Without it the page is for every app.
+  var wanted = (new URLSearchParams(location.search).get("app") || "").toLowerCase();
+  var appKey = NAMES[wanted] && wanted !== "other" ? wanted : null;
+  document.querySelectorAll(".faq").forEach(function (s) {
+    s.hidden = appKey !== null && !(s.dataset.app === appKey || s.dataset.app === "all");
+  });
 
   function compose() {
-    var app = NAMES[value("app")], topic = value("topic");
+    var app = NAMES[appKey || "other"], topic = value("topic");
     var text = message.value.trim();
     var first = text.split(/\n/)[0].slice(0, 60);
     var subject = "[" + app + "] " + topic + (first ? ": " + first : "");
-    var body = text + "\n\n—\nApp: " + app + "\nTopic: " + topic;
+    var body = text + "\n\n—\n" + (appKey ? "App: " + app + "\n" : "") + "Topic: " + topic;
     if (device.checked) body += "\nDevice: " + deviceLine();
     return { subject: subject, body: body };
   }
@@ -152,13 +142,6 @@
   var KEY = "support-draft";
   try { var saved = localStorage.getItem(KEY); if (saved && !message.value) message.value = saved; } catch (e) {}
   message.addEventListener("input", function () { try { localStorage.setItem(KEY, message.value); } catch (e) {} });
-
-  // ?app=nymora picks the app (each app's Support URL links here this way).
-  var wanted = (new URLSearchParams(location.search).get("app") || "").toLowerCase();
-  var chosen = NAMES[wanted] && form.querySelector('input[name="app"][value="' + wanted + '"]');
-  if (chosen) chosen.checked = true;
-  form.addEventListener("change", showFaq);
-  showFaq();
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
